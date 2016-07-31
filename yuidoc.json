@@ -1,0 +1,14 @@
+{
+    "name": "Tamina",
+    "description": "Tamina Lib for Haxe",
+    "version": "0.0.1",
+	"logo":"./theme/assets/logo.png",
+    "options": {
+        "linkNatives": "true",        
+        "attributesEmit": "true",
+        "paths": ["node_modules/taminahx/"],
+		"helpers": ["path.js"],
+		"themedir": "theme",
+        "outdir": "doc"
+    }
+}

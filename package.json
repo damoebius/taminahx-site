@@ -1,0 +1,39 @@
+{
+  "name": "taminahx-site",
+  "description": "tamina library website",
+  "keywords": [
+    "tamina",
+    "web components",
+    "http requests",
+    "loaders",
+    "utils",
+    "haxe"
+  ],
+  "author": {
+    "name": "David Mouton"
+  },
+  "version": "0.0.2",
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "main": "",
+  "preferGlobal": false,
+  "homepage": "http://lib.tamina-online.com",
+  "bugs": {
+    "url": "https://github.com/damoebius/taminahx/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/damoebius/taminahx.git"
+  },
+  "scripts": {
+    "build-doc": "node ./scripts/build-doc",
+    "deploy-local": "node ./scripts/deploy-local"
+  },
+  "dependencies": {
+    "taminahx": ">=0.0.1",
+    "fs-extra": ">=0.0.1"
+  },
+  "readmeFilename": "README.md"
+}
