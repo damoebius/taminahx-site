@@ -1,5 +1,9 @@
 {
   "build": "build/prod/taminahx-site/",
+  "ssh":{
+    "ip":"ftp.tamina-online.com",
+    "user":"taminaon"
+  },
   "includes":[
     "css",
     "doc",

@@ -4,6 +4,7 @@ var fs = require('fs');
 var fsx = require('fs-extra');
 var targz = require('tar.gz');
 var prompt = require('prompt');
+var Client = require('ssh2').Client;
 
 var config = JSON.parse(fs.readFileSync(__dirname + '/prod.json', 'utf8'));
 var cache;
@@ -22,11 +23,22 @@ var buildPackage = function (){
 
     });
     console.log('Compression Done');
-    console.log('SSH pasword :' + cache.ssh_password);
-    console.log('Deploy DONE to' + config.build);
+    sendPackage();
 
+};
+
+var sendPackage = function(){
+    var conn = new Client();
+    conn.on('ready', function() {
+        console.log('Client :: ready');
+
+    }).connect({
+        host: config.ssh.ip,
+        port: 22,
+        username: config.ssh.user,
+        password: cache.ssh_password
+    });
 }
-
 
 
 try {
