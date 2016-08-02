@@ -31,7 +31,33 @@ var sendPackage = function(){
     var conn = new Client();
     conn.on('ready', function() {
         console.log('Client :: ready');
+        conn.sftp(
+            function (err, sftp) {
+                if ( err ) {
+                    console.log( "Error, problem starting SFTP: %s", err );
+                    process.exit( 2 );
+                }
 
+                console.log( "- SFTP started : " + config.ssh.dir );
+
+                // upload file
+                var readStream = fs.createReadStream( "site.tar.gz" );
+                var writeStream = sftp.createWriteStream( config.ssh.dir + "/site.tar.gz" );
+
+                // what to do when transfer finishes
+                writeStream.on(
+                    'close',
+                    function () {
+                        console.log( "- file transferred" );
+                        sftp.end();
+                        process.exit( 0 );
+                    }
+                );
+
+                // initiate transfer of file
+                readStream.pipe( writeStream );
+            }
+        );
     }).connect({
         host: config.ssh.ip,
         port: 22,
