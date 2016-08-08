@@ -30,19 +30,27 @@ var sendPackage = function(config,next){
                     function () {
                         console.log( "- file transferred" );
                         sftp.end();
-                        conn.exec('ls -lah', function(err, stream) {
+                        var command = 'tar -zxvf ' + config.ssh.dir + "/site.tar.gz -C " + config.ssh.dir;
+                        console.log( "extracting : " + command );
+                        conn.exec(command, function(err, stream) {
                             if (err) throw err;
                             stream.on('data', function(data, stderr) {
-                                if (stderr)
+                                if (stderr) {
                                     console.log('STDERR: ' + data);
-                                else
+                                    next();
+                                }
+                                else {
                                     console.log('STDOUT: ' + data);
+                                    next();
+                                }
                             }).on('exit', function(code, signal) {
                                 console.log('Exited with code ' + code);
+                                next();
                             });
+
                         });
                         //process.exit( 0 );
-                        next();
+
                     }
                 );
 

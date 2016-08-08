@@ -16,6 +16,7 @@ var currentTaskIndex=0;
 var exitTask = {
     run:function(){
         console.log("END");
+        process.exit(0);
     }
 }
 

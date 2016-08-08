@@ -4,6 +4,7 @@
 var fs = require('fs');
 var fsx = require('fs-extra');
 var targz = require('tar.gz');
+var zlib = require('zlib');
 
 
 
@@ -15,13 +16,15 @@ var run = function (config,next){
         fsx.copySync( './' + target, config.build+target);
     }
     console.log('Files copied');
-    targz().compress(config.build, 'site.tar.gz', function(err){
-        if(err)
-            console.log('Something is wrong ', err.stack);
 
+    targz().compress(config.build, 'site.tar.gz', function(err){
+        if(err) {
+            console.log('Something is wrong ', err.stack);
+        }
+        console.log('Compression Done');
+        next();
     });
-    console.log('Compression Done');
-    next();
+
 
 };
 
