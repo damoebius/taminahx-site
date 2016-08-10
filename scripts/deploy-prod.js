@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 console.log('Deploy prod');
-var fs = require('fs');
+var configManager = require(__dirname +'/config.js');
 var packageTask = require(__dirname +'/build-package.js');
 var sendTask = require(__dirname +'/send-package.js');
 
@@ -10,7 +10,7 @@ console.log(packageTask);
 
 
 
-var config = JSON.parse(fs.readFileSync(__dirname + '/prod.json', 'utf8'));
+var config = configManager.getConfig('prod');
 var currentTaskIndex=0;
 
 var exitTask = {

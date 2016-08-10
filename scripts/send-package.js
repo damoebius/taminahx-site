@@ -4,6 +4,7 @@
 var fs = require('fs');
 var prompt = require('prompt');
 var Client = require('ssh2').Client;
+var cacheManager = require(__dirname +'/cache.js');
 
 var config,cache,next;
 
@@ -69,7 +70,7 @@ var sendPackage = function(config,next){
 var run = function(config,next){
     console.log('SEND Package');
     try {
-        cache = JSON.parse(fs.readFileSync(__dirname + '/.cache', 'utf8'));
+        cache = cacheManager.getCache('prod');
         sendPackage(config,next);
     } catch(err){
         console.log('SSH pasword :');
@@ -78,7 +79,7 @@ var run = function(config,next){
             cache = {
                 ssh_password: result.password
             };
-            fs.writeFile(__dirname + '/.cache', JSON.stringify(cache), 'utf8');
+            cacheManager.setCache('prod',cache);
             sendPackage(config,next);
         });
 

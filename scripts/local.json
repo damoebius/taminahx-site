@@ -1,5 +1,4 @@
 {
-  "www": "/var/www/html/taminahx-site/",
   "includes":[
     "css",
     "doc",
